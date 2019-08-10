@@ -29,8 +29,8 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 //database config
-// var url =  "mongodb+srv://tom:qut1vjqO5SMdJQs2@cluster0-luqes.mongodb.net/test?retryWrites=true&w=majority";
-var url =  "mongodb://localhost/newCo"
+var url =  "mongodb+srv://tom:qut1vjqO5SMdJQs2@cluster0-luqes.mongodb.net/test?retryWrites=true&w=majority";
+// var url =  "mongodb://localhost/newCo"
 mongoose.connect(url, {useNewUrlParser: true});
 
 
