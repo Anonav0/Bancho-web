@@ -64,7 +64,7 @@ app.use(userRoute);
 
 
 
-app.listen(  3000 || process.env.PORT ,  process.env.IP, function(err){
+app.listen(   process.env.PORT || 3000  ,  process.env.IP, function(err){
     console.log("server started");
 });
 
