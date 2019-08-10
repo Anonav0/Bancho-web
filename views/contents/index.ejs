@@ -5,7 +5,7 @@
           <div class="container">
             <h1 class="display-3"><i class="fas fa-assistive-listening-systems"> Hey There!</i> </h1>
             <h3>A Place for the people of the earth to share their ideas and thoughts!</h3>
-            <a href="#new" role="button" data-toggle="collapse" class="btn aqua-gradient" aria-expanded="false" aria-controls="new"> <span class="spinner-grow spinner-grow-sm"></span>  add content</a>
+            <a href="#new" role="button" data-toggle="collapse" class="btn aqua-gradient" aria-expanded="false" aria-controls="new"> <span class="spinner-grow spinner-grow-sm"></span>  New Thought!</a>
             <!-- collapse create content form starts here -->
             <div class="collapse" id="new">
                 <div class="card card-body bg-gradient-light" style="border-left: 5px solid #12cab2; margin-top:15px;">
@@ -14,7 +14,7 @@
                     <h5>You need to login before you share your thought. <a href="/login">Click here</a> to go to the login page.</h5>
                   <% } %>
                   <% if (currentUser) { %>
-                    <h4>Write your Content</h4>
+                    <h4><strong>Write Your Mind Out!</strong></h4>
                     <form id="add-comment-form" action="/home" method="POST">
                       <div class="form-group">
                         <input class="form-control" type="text" disabled value="<%= currentUser.username%>">
@@ -23,7 +23,7 @@
                         <input class=" emoji form-control" name="content[name]" placeholder="Title" form="add-comment-form" rows="5" cols="70">
                       </div>
                       <div class="form-group">
-                        <textarea class=" emoji form-control " name="content[body]" placeholder="Write your comment..." form="add-comment-form" rows="5" cols="70"></textarea>
+                        <textarea class=" emoji form-control " name="content[body]" placeholder="Engrave your thoughts here.." form="add-comment-form" rows="5" cols="70"></textarea>
                       </div>
                       <div class="form-group">
                         <button class="btn aqua-gradient btn-sm"><i class="fab fa-telegram-plane"></i> Post</button>
@@ -78,7 +78,7 @@
                           <hr>
                           <p class="card-text">
                             <%if (!user.about) {%>
-                            Hi There! I just started using newCo.!!!!
+                            Hi There! I just started using Banco! to share my thoughts!!!!
                             <%}%>
                             <%= user.about%>
                           </p>
