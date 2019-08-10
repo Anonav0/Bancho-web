@@ -1,0 +1,48 @@
+<% include ./partials/header %>
+
+
+<div class="row justify-content-center">
+    <div class="col-md-12 text-center">
+        <p><i class="fas fa-assistive-listening-systems fa-3x text-white"></i></p>
+        <h1 class="text-white"><strong> Please Sign Up</h1></strong>
+    </div>
+    <div class="col-xs-12 col-md-6 col-lg-4">
+        <form action="/register" method="post" enctype="multipart/form-data" >
+            <div class="form-group">
+                <label for="inputUsername" class="sr-only">Username</label>
+                <input class=" form-control" id="inputUsername" type="text" name="username" placeholder="username" autofocus>
+            </div>
+            <div class="form-group">
+                <label for="inputFirstname" class="sr-only">FirstName</label>
+                <input class="form-control" id="inputFirstname"type="text" name="firstName" placeholder="first name">
+            </div>
+            <div class="form-group">
+                <label for="inputLastname" class="sr-only">LastName</label>
+                <input class="form-control" id="inputLastname" type="text" name="lastName" placeholder="last Name">
+            </div>
+            <div class="form-group">
+                <label for="inputEmail" class="sr-only">Email</label>
+                <input class="form-control" id="inputEmail" type="text" name="email" placeholder="email">
+            </div>
+            <div class="form-group">
+                <label for="avatar" class="sr-only">Avatar</label>
+                <input type="file" id="avatar" name="avatar" accept="image/*" required>
+            </div>
+            <div class="form-group">
+                <label for="inputPassword" class="sr-only">Pasword</label>
+                <input class="form-control"  id="inputPassword" type="password" name="password" placeholder="password">
+            </div>
+            <div class="form-group">
+                <button class="btn aqua-gradient btn-block">Sign Up!</button>
+            </div>
+        </form>
+        <div class="signin-form">
+                <a href="/home" class="btn btn-sm text-white">Go Back</a>
+        </div>
+    </div>
+</div>
+
+<% include ./partials/footer %>
+
+    
+

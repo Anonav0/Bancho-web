@@ -1,0 +1,142 @@
+<% include ../partials/header%>
+
+  <div class="container">
+    <div class="row">
+
+      <div class="col-md-9">
+        <div class="card colored" >
+          <div class="card-body">
+            <div class="card">
+                <div class="card-body ">
+                    <h5 class="card-title"><strong><%=content.name%></h5></strong>
+                    <p class="card-text"><%=content.body%></p>
+                    <p>
+                      <em>Submitted by: <a href="#"> <%= content.author.username %> </a> , <%= moment(content.createdAt).fromNow() %></em>
+                    </p>
+                    
+                   
+                    <% if(currentUser && content.author.id.equals(currentUser._id)){ %>
+                      <a class="btn btn-warning btn-sm" href="#edit" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="edit" > <i class="fas fa-edit"></i> EDIT</a>
+                    <% } %>
+                    <!-- collapse create content form starts here -->
+                    
+                    <div class="collapse" id="edit">
+                      <div class="card card-body bg-gradient-light" style="border-left: 5px solid #ffbb33; margin-top:15px;">
+                        <% if(!currentUser) { %>
+                            <!--If the user is not logged in, direct him to the login page-->
+                            <h5>You need to login before you can edit. <a href="/login">Click here</a> to go to the login page.</h5>
+                        <% } %>
+                        <% if (currentUser) { %>
+                          <h4>Write your Content</h4>
+                          <form id="add-comment-form" action="/home/<%= content._id%>?_method=PUT" method="POST">
+                            <div class="form-group">
+                              <input class="form-control" type="text" disabled value="<%= currentUser.username%>">
+                            </div>
+                            <div class="form-group">
+                              <input class=" emoji form-control" name="content[name]" value="<%=content.name%>" form="add-comment-form" rows="5" cols="70">
+                            </div>
+                            <div class="form-group">
+                              <textarea class=" emoji form-control" name="content[body]"  form="add-comment-form" rows="5" cols="70"><%= content.body %></textarea>
+                            </div>
+                            <div class="form-group">
+                              <button class="btn btn-warning btn-sm"> <i class="fas fa-edit"></i> Update</button>
+                            </div>
+                          </form>
+                        <% } %>
+                        
+                      </div>
+                    </div>
+              <!-- collpase ends here -->
+                  <% if(currentUser && content.author.id.equals(currentUser._id)){ %>
+                    <form id="delete" action="/home/<%= content._id%>?_method=DELETE" method="POST">
+                      <button class="btn btn-danger btn-sm"> <i class="fas fa-trash"></i> DELETE</button>
+                    </form>
+                  <% }%>  
+                </div>  
+            </div>
+          </div>
+        </div>
+
+        <!-- Comments template -->
+        <div class="card bg-light mb-4" style="margin-top: 20px" >
+          <div class="card-body ">
+              <div class="text-right">
+                <a class="btn  aqua-gradient" href="#newComment" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="newComment" ><i class="fas fa-plus-circle"></i> Add Comment</a>
+              </div>
+              <!-- collapse create content form starts here -->
+              <div class="collapse" id="newComment">
+                <div class="card card-body bg-gradient-light" style="border-left: 5px solid #12cab2; margin-top:15px;">
+                  <% if(!currentUser) { %>
+                    <!--If the user is not logged in, direct him to the login page-->
+                    <h5>You need to login before you can comment. <a href="/login">Click here</a> to go to the login page.</h5>
+                  <% } %>
+                  <% if (currentUser) { %>
+                    <h4>Write your Comment</h4>
+                    <form id="add-comment-form" action="/home/<%=content._id%>/comments" method="POST">
+                      <div class="form-group">
+                        <input class="form-control" type="text" disabled value="<%=currentUser.username%>">
+                      </div>
+                      <div class="form-group">
+                        <textarea class=" emoji form-control" name="comment[text]" placeholder="Write your comment..." class="add-comment-form" rows="5" cols="70"></textarea>
+                      </div>
+                      <div class="form-group">
+                        <button class="btn aqua-gradient btn-sm"> <i class="fab fa-telegram-plane"></i> Comment</button>
+                      </div>
+                    </form>
+                  <% } %>
+                </div>
+              </div>
+            <!-- collpase ends here -->
+              <hr>
+              <div class="card-body">
+                <% content.comments.forEach(function(comment){ %>
+                <div class="card mb-2">  
+                <div class="card-body">
+                  <p class="card-text float-right"><%= moment(comment.createdAt).fromNow() %></p>
+                  <h5><strong class="card-title"> <i class="fas fa-user"></i> <%= comment.author.username %></strong></h5>
+                  <p class="card-text"><i class="fas fa-comments"></i> <%= comment.text %></p>
+                  <% if(currentUser && comment.author.id.equals(currentUser._id)){ %>
+                    <form class="text-right" action="/home/<%= content._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST" >
+                      <button class="btn btn-outline-danger btn-sm"><i class="fas fa-trash"></i></button>
+                    </form>
+                  <% } %>
+              </div>
+            </div>
+              <% }); %>
+
+            </div>
+          </div>    
+        </div>
+      </div>
+
+        <!-- user template -->
+        <div class="col-md-3">
+          <div class="card card-cassade mb-4" >
+            <img src="<%= user.avatar %>" class="card-img-top" alt="/assets/images/vimeo.jpg">
+            <div class="card-body">
+              <h5 class="card-title"><i class="fas fa-user-circle"></i> <%= user.username %></h5>
+              <p class="card-text"><%= user.firstName %> <%= user.lastName %></p>
+              <hr>
+              <p class="card-text"><%= user.about %></p>
+              <hr>
+              <strong class="card-title">Posts</strong>
+              <div class="list-group">
+
+                <% userContents.forEach(function(content) {%>
+                  <a  href="/home/<%= content.id %>" class="list-group-item list-group-item-action">
+                    <h5> <i class="far fa-paper-plane"></i> <%= content.name %></h5>
+                  </a>
+                <% }); %>
+
+              </div> 
+            </div> 
+          </div>
+        </div>
+      </div>
+
+  </div>
+</div>  
+
+
+
+<% include ../partials/footer%>
